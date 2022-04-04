@@ -9,8 +9,7 @@ with open('tokenized.p', 'rb') as token_file:
 
 pattern_total = {}
 for txt in tqdm(tokenized):
-# txt = ['this', 'event', 'took', 'place', 'in', 'early', 'fall', 'around', '1949', '-', '50', '.', 'it', 'occurred', 'after', 'a', 'boy', 'scout', 'meeting', 'in', 'the', 'baptist', 'church', '.', 'the', 'baptist', 'church', 'sit']
-    for txt_b in tokenized:
+    for txt_b in tqdm(tokenized):
         if txt != txt_b:
             long_pat = []
             for t in txt:
@@ -20,7 +19,7 @@ for txt in tqdm(tokenized):
                         break
             long_pat_len = len(long_pat)
             long_pat_set = set(long_pat)
-            pat_stop_words = {"it", "in", "around", "this", "after"}
+            pat_stop_words = {"it", "in", "around", "this", "after", "/"}
             difference = long_pat_set - pat_stop_words
             if len(difference) > 0:
                 powerset = chain.from_iterable(combinations(long_pat, r) for r in range(len(long_pat)+1))
@@ -35,4 +34,4 @@ for txt in tqdm(tokenized):
 
 pat_list = pattern_total.items()
 df = pd.DataFrame(pat_list)
-df.to_csv('patterns.csv')
+df.to_csv('patterns/patterns.csv')
