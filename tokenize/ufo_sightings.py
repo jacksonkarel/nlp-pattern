@@ -2,7 +2,7 @@ import pickle
 
 import pandas as pd
 
-from helpers import txt_to_tokens
+from tokenize.helpers import txt_to_tokens
 
 df_text = pd.read_csv('complete.csv', usecols=[7])
 df_text.dropna()
