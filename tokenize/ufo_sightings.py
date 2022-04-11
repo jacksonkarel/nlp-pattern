@@ -4,7 +4,7 @@ import pandas as pd
 
 from tokenize.helpers import txt_to_tokens
 
-df_text = pd.read_csv('complete.csv', usecols=[7])
+df_text = pd.read_csv('data/complete.csv', usecols=[7])
 df_text.dropna()
 df_text['comments'] = df_text['comments'].astype(str)
 df_tokens = df_text["comments"].apply(txt_to_tokens)
