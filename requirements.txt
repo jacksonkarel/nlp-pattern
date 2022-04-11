@@ -1,3 +1,4 @@
+kaggle==1.5.12
 pandas==1.4.0
 pdfminer==20191125
 pdfminer.six==20220319
