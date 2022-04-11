@@ -1,4 +1,6 @@
 pandas==1.4.0
+pdfminer==20191125
+pdfminer.six==20220319
 spacy==3.2.1
 tqdm==4.62.3
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0-py3-none-any.whl
