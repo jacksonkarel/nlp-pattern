@@ -11,7 +11,7 @@ with open('tokenized.p', 'rb') as token_file:
 
 pattern_total = {}
 for txt in tqdm(tokenized):
-    for txt_b in tqdm(tokenized):
+    for txt_b in tokenized:
         if txt != txt_b:
             long_pat = []
             for t in txt:
