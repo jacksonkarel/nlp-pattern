@@ -1,6 +1,6 @@
 from kaggle.api.kaggle_api_extended import KaggleApi
 
-from pattern_rec import word_order
+from word_order import word_order
 
 word_order()
 kaggle = KaggleApi()
