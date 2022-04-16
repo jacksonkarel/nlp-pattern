@@ -2,7 +2,7 @@ import pickle
 
 import pandas as pd
 
-from tokenize.helpers import txt_to_tokens
+from tkenize.helpers import txt_to_tokens
 
 def nuforc():
     df_text = pd.read_csv('data/nuforc.csv', usecols=[7])
