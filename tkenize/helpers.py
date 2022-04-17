@@ -1,6 +1,7 @@
 import spacy
 
-stop_words = [".", "?", "!", "-", " ", ",", ";", ":", "a", "the", "(", ")", "it", "in", "this", "/", "\n", "\n\n"]
+stop_punct = [".", ".", "?", "!", "-", " ", ",", ";", ":", "/", "(", ")", "\n", "•", "  ", "\\", '"', "'"]
+stop_words = stop_punct + ["a", "the", "it", "in", "this", "\n\n"]
 
 def txt_to_tokens(txt):
     doc = sm_doc(txt)
