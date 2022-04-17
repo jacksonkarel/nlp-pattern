@@ -4,8 +4,8 @@ from itertools import chain, combinations
 from tqdm import tqdm
 import pandas as pd
 
-def word_order():
-    with open('tokenized.p', 'rb') as token_file:
+def word_order(token_fn, output_fn):
+    with open(token_fn, 'rb') as token_file:
         tokenized = pickle.load(token_file)
 
     pattern_total = {}
@@ -34,4 +34,4 @@ def word_order():
 
     pat_list = pattern_total.items()
     df = pd.DataFrame(pat_list)
-    df.to_csv('patterns/patterns.csv')
+    df.to_csv(output_fn)

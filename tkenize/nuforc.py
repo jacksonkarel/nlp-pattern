@@ -11,5 +11,5 @@ def nuforc():
     df_tokens = df_text["comments"].apply(txt_to_tokens)
     tokenized = df_tokens.to_list()
     tokenized.pop(0)
-    with open('tokenized.p', 'ab') as token_file:
+    with open('tokenizations/nuforc.p', 'ab') as token_file:
         pickle.dump(tokenized, token_file)
