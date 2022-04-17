@@ -1,11 +1,12 @@
+import re
+
 import spacy
 
-stop_punct = [".", ".", "?", "!", "-", " ", ",", ";", ":", "/", "(", ")", "\n", "•", "  ", "\\", '"', "'", "■", "_", "~"]
-stop_words = stop_punct + ["a", "the", "it", "in", "this", "\n\n"]
+stop_words = ["a", "the", "it", "in", "this"]
 
 def txt_to_tokens(txt):
     doc = sm_doc(txt)
-    tokens = [t.text.lower() for t in doc if t.text.lower() not in stop_words]
+    tokens = [t.text.lower() for t in doc if t.text.lower() not in stop_words and re.search("[a-zA-Z0-9]", t.text.lower())]
     return tokens
 
 def sm_doc(txt):
