@@ -24,8 +24,3 @@ def pdf_t_pickle(file_path, segmenter, pickle_fn):
                 
     with open(pickle_fn, 'wb') as sent_file:
         pickle.dump(sents, sent_file)
-
-def pdf_tokenize(file, tkenizer): 
-    txt = extract_text(file)
-    tokens = tkenizer(txt)
-    return tokens
