@@ -9,7 +9,7 @@ from pdfminer.high_level import extract_text
 def pdf_t_pickle(file_path, segmenter, pickle_fn):
     if os.path.isfile(file_path):
        texts = [extract_text(file_path)]
-    if os.path.isdir(file_path):
+    elif os.path.isdir(file_path):
         texts = []
         file_count = len(fnmatch.filter(os.listdir(file_path), '*.*'))
         with tqdm(total=file_count) as pbar:
