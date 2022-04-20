@@ -11,6 +11,7 @@ def word_order(token_fn, output_fn, pat_sw=False):
     
     counter = 0
     counter_b = 0
+
     with tqdm(total=len(tokenized)) as pbar:
         while tokenized and counter_b < 2:
             top_pats = {}
@@ -29,18 +30,23 @@ def word_order(token_fn, output_fn, pat_sw=False):
                     powerset = chain.from_iterable(combinations(long_pat, r) for r in range(len(long_pat)+1))
                     for pat in powerset:
                         if pat:
-                            pat_str = " ".join(pat)
-                            if counter > 0:
-                                if not all_tp['pattern'].str.contains(pat_str).any():
+                            pat_set = set(pat)
+                            stop_comb = {"and", "or", "but", "though", "if", "were", "he", "she", "not", "his", "her", "because", "they"
+                            "they", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "so", "when", "how", "which", "where", "who", 
+                            "whom", "therefore"}
+                            if not pat_set.issubset(stop_comb):
+                                pat_str = " ".join(pat)
+                                if counter > 0:
+                                    if not all_tp['pattern'].str.contains(pat_str).any():
+                                        if pat_str in top_pats:
+                                            top_pats[pat_str] += 1
+                                        else:
+                                            top_pats[pat_str] = 1
+                                else:
                                     if pat_str in top_pats:
                                         top_pats[pat_str] += 1
                                     else:
                                         top_pats[pat_str] = 1
-                            else:
-                                if pat_str in top_pats:
-                                    top_pats[pat_str] += 1
-                                else:
-                                    top_pats[pat_str] = 1
             
             if top_pats:
                 tp_df = pd.DataFrame()
@@ -49,29 +55,11 @@ def word_order(token_fn, output_fn, pat_sw=False):
                 tp_df['sentLenByCount'] = tp_df['pattern'].apply(len) * tp_df['count']
                 if counter < 1:
                     all_tp = tp_df
-                    # counter += 1
                 else:
                     all_tp = pd.concat([all_tp, tp_df])
-                    # print(all_tp)  
                 counter_b += 1
             
             tokenized.pop(0)
-            counter += 1
+            if counter < 1:
+                counter += 1
             pbar.update(1)
-    
-    print(all_tp)
-        
-            
-
-
-
-    # with tqdm(total=len(tokenized)) as pbar:
-    #     for tks in csv_gen:
-    #         token_pattern(tks, next(tk_gen), pat_sw)
-    #         pbar.update(1)
-
-    # [token_pattern(tks, tokenized[idx +1], pat_sw) for idx, tks in tqdm(enumerate(tokenized))]
-    
-    # df = pd.DataFrame(pat_list)
-    # pat_vc = df.value_counts()
-    # pat_vc.to_csv(output_fn)
