@@ -10,10 +10,9 @@ def word_order(token_fn, output_fn, pat_sw=False):
         tokenized = pickle.load(token_file)
     
     counter = 0
-    counter_b = 0
 
     with tqdm(total=len(tokenized)) as pbar:
-        while tokenized and counter_b < 2:
+        while tokenized:
             top_pats = {}
             tks = tokenized[0]
             for tks_b in tqdm(tokenized[1:]):
@@ -57,9 +56,10 @@ def word_order(token_fn, output_fn, pat_sw=False):
                     all_tp = tp_df
                 else:
                     all_tp = pd.concat([all_tp, tp_df])
-                counter_b += 1
             
             tokenized.pop(0)
             if counter < 1:
                 counter += 1
             pbar.update(1)
+        
+    all_tp.to_csv(output_fn)
