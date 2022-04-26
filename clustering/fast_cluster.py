@@ -1,4 +1,6 @@
 import time
+import pickle
+import json
 
 from sentence_transformers import SentenceTransformer, util
 
@@ -20,6 +22,9 @@ def fast_cluster(corpus_fn):
     corpus_embeddings = model.encode(corpus_sentences, batch_size=64, show_progress_bar=True, convert_to_tensor=True)
 
 
+    fast_clust_embed(corpus_embeddings, corpus_sentences)
+
+def fast_clust_embed(corpus_embeddings, corpus_sentences, output):
     print("Start clustering")
     start_time = time.time()
 
@@ -30,11 +35,25 @@ def fast_cluster(corpus_fn):
 
     print("Clustering done after {:.2f} sec".format(time.time() - start_time))
 
-    #Print for all clusters the top 3 and bottom 3 elements
-    for i, cluster in enumerate(clusters):
-        print("\nCluster {}, #{} Elements ".format(i+1, len(cluster)))
-        for sentence_id in cluster[0:3]:
-            print("\t", corpus_sentences[sentence_id])
-        print("\t", "...")
-        for sentence_id in cluster[-3:]:
-            print("\t", corpus_sentences[sentence_id])
+    cluster_dict = {}
+    for idx, clust in enumerate(clusters, start=1):
+        cluster_dict[idx] = {}
+        cluster_dict[idx]["sentences"] = {}
+        cluster_dict[idx]["length"] = len(clust)
+        for sentence_id in clust:
+            clean_item = corpus_sentences[sentence_id].lower().strip(".")
+            if clean_item in cluster_dict[idx]["sentences"]:
+                cluster_dict[idx]["sentences"][clean_item] += 1
+            else:
+                cluster_dict[idx]["sentences"][clean_item] = 1
+
+    with open(output, 'w') as outfile:
+        json.dump(cluster_dict, outfile)
+
+def unpickle_f_clust(corpus_fn, embed_fn, output):
+    corpus_sentences = txt_to_list(corpus_fn)
+
+    with open(embed_fn, 'rb') as embed_file:
+        corpus_embeddings = pickle.load(embed_file)
+    
+    fast_clust_embed(corpus_embeddings, corpus_sentences, output)
