@@ -7,14 +7,6 @@ from sentence_transformers import SentenceTransformer, util
 from helpers import txt_to_list
 
 def fast_cluster(corpus_fn, output):
-    """
-    Modified from https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/clustering/fast_clustering.py
-    You can freely configure the threshold what is considered as similar. A high threshold will
-    only find extremely similar sentences, a lower threshold will find more sentence that are less similar.
-    A second parameter is 'min_community_size': Only communities with at least a certain number of sentences will be returned.
-    The method for finding the communities is extremely fast, for clustering 50k sentences it requires only 5 seconds (plus embedding comuptation).
-    """
-
     embeddings_sents = sent_trans_embed(corpus_fn)
 
     fast_clust_embed(*embeddings_sents, output)
@@ -37,6 +29,14 @@ def sent_trans_embed(corpus_fn):
 
 
 def fast_clust_embed(corpus_embeddings, corpus_sentences, output):
+    """
+    Modified from https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/clustering/fast_clustering.py
+    You can freely configure the threshold what is considered as similar. A high threshold will
+    only find extremely similar sentences, a lower threshold will find more sentence that are less similar.
+    A second parameter is 'min_community_size': Only communities with at least a certain number of sentences will be returned.
+    The method for finding the communities is extremely fast, for clustering 50k sentences it requires only 5 seconds (plus embedding comuptation).
+    """
+    
     print("Start clustering")
     start_time = time.time()
 
