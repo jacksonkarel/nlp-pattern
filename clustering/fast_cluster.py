@@ -32,11 +32,11 @@ def fast_clust_embed(corpus_embeddings, corpus_sentences, output):
     """
     Modified from https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/clustering/fast_clustering.py
     You can freely configure the threshold what is considered as similar. A high threshold will
-    only find extremely similar sentences, a lower threshold will find more sentence that are less similar.
+    only find extremely similar sentences, a lower threshold will find more sentences that are less similar.
     A second parameter is 'min_community_size': Only communities with at least a certain number of sentences will be returned.
     The method for finding the communities is extremely fast, for clustering 50k sentences it requires only 5 seconds (plus embedding comuptation).
     """
-    
+
     print("Start clustering")
     start_time = time.time()
 
@@ -50,8 +50,8 @@ def fast_clust_embed(corpus_embeddings, corpus_sentences, output):
     cluster_dict = {}
     for idx, clust in enumerate(clusters, start=1):
         cluster_dict[idx] = {}
-        cluster_dict[idx]["sentences"] = {}
-        cluster_dict[idx]["length"] = len(clust)
+        cluster_dict[idx]["size"] = len(clust)
+        cluster_dict[idx]["texts"] = {}
         for sentence_id in clust:
             clean_item = corpus_sentences[sentence_id].lower().strip(".")
             if clean_item in cluster_dict[idx]["sentences"]:
