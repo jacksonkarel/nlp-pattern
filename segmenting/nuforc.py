@@ -4,7 +4,7 @@ import pandas as pd
 
 from segmenting.helpers import txt_to_tokens
 
-def nuforc(txt=True):
+def segment_nuforc(txt=True):
     df_text = pd.read_csv('data/nuforc.csv', usecols=[7])
     df_text.dropna()
     df_text['comments'] = df_text['comments'].astype(str)
