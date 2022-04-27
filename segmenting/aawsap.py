@@ -2,7 +2,7 @@ import re
 
 import spacy
 
-from tkenize.helpers import stop_words
+from segmenting.helpers import stop_words
 
 def aawsap_seg(texts, txt=True):
     nlp = spacy.load("en_core_web_lg", exclude=["ner", "parser", "tagger", "lemmatizer"])
