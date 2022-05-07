@@ -13,9 +13,9 @@ def segment_file(file_path, output):
     pdf_end = ".pdf"
     txt_end = ".txt"
     if os.path.isfile(file_path):
-        if file_path.path.endswith(pdf_end):
+        if file_path.endswith(pdf_end):
            texts = [extract_text(file_path)]
-        elif file_path.path.endswith(txt_end):
+        elif file_path.endswith(txt_end):
             texts = txt_to_list(file_path)
 
     elif os.path.isdir(file_path):
