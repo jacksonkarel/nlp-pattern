@@ -3,4 +3,5 @@ def txt_to_list(fname):
         read_data = f.read()
     
     txt_list = read_data.split("\n")
-    return txt_list
+    tl_clean = [txt for txt in txt_list if txt]
+    return tl_clean

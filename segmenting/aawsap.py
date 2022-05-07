@@ -1,10 +1,8 @@
-import re
-
 import spacy
 
 from segmenting.helpers import extract_tokens
 
-def aawsap_seg(texts, txt=True):
+def segment_sents(texts, txt=True):
     nlp = spacy.load("en_core_web_lg", exclude=["ner", "parser", "tagger", "lemmatizer"])
     nlp.enable_pipe("senter")
     sents = []
