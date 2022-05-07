@@ -6,9 +6,10 @@ from tqdm import tqdm
 from pdfminer.high_level import extract_text
 
 from helpers import txt_to_list
+from segmenting.segment_sents import segment_sents
 
 
-def segment_file(file_path, segmenter, output):
+def segment_file(file_path, output):
     pdf_end = ".pdf"
     txt_end = ".txt"
     if os.path.isfile(file_path):
@@ -32,13 +33,13 @@ def segment_file(file_path, segmenter, output):
                 pbar.update(1)
 
     if output.endswith(".pickle"):
-        sents = segmenter(texts, txt=False)
+        sents = segment_sents(texts, txt=False)
 
         with open(output, 'wb') as sent_file:
             pickle.dump(sents, sent_file)
     
     else:
-        sents = segmenter(texts)
+        sents = segment_sents(texts)
         segmented = "\n".join(sents)
         
         with open(output, 'w') as f:
