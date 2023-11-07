@@ -1,6 +1,6 @@
 import pickle
 
-from word_order import word_order
+from word_order.word_pat import word_order
 
 def unclustered_word_order(input_fn, output_fn, pat_sw=False, count_syn=True):
     with open(input_fn, 'rb') as token_file:
